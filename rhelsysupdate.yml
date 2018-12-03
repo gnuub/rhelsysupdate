@@ -1,0 +1,20 @@
+---
+- name: Apply security updates to RHEL system
+  hosts: odi_sandbox
+  become: True
+  become_method: sudo
+  tasks:
+    - name: Apply security updates
+      yum:
+        name: '*'
+        security: yes
+        bugfix: yes
+        state: latest
+      register: results
+
+    - name: log results
+      copy:
+        dest: output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.appliedupdates.log
+        content: "{{ results['results'][0] }}"
+      delegate_to: 127.0.0.1
+...
