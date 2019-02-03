@@ -1,6 +1,6 @@
 ---
 - name: Apply security updates to RHEL system
-  hosts: odi_sandbox
+  hosts: "{{ inventory_group }}"
   become: True
   become_method: sudo
   tasks:
