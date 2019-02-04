@@ -4,17 +4,16 @@
   become: True
   become_method: sudo
   tasks:
-    - name: Apply security updates
+    - name: Apply updates
       yum:
         name: '*'
-        security: yes
-        bugfix: yes
         state: latest
       register: results
 
     - name: log results
       copy:
-        dest: output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.appliedupdates.log
+        dest: output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.{{ansible_date_time.epoch}}.appliedupdates.log
         content: "{{ results['results'][0] }}"
+        backup: yes
       delegate_to: 127.0.0.1
 ...
