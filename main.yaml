@@ -1,0 +1,15 @@
+---
+- name: Main YAML for RHEL Update Loop
+  hosts: "{{ inventory_group }}"
+  become: True
+  # become_method: sudo
+
+  tasks:
+    - name: Include main update module
+      import_tasks: rhelsysupdate_task.yaml
+      until: '"Nothing to do here" in results.results'
+      delay: 3
+
+    - debug:
+        var: results
+...

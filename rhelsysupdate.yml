@@ -14,6 +14,5 @@
       copy:
         dest: output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.{{ansible_date_time.epoch}}.appliedupdates.log
         content: "{{ results['results'][0] }}"
-        backup: yes
       delegate_to: 127.0.0.1
 ...
