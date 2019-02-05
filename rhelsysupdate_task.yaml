@@ -12,3 +12,6 @@
     backup: yes
   delegate_to: 127.0.0.1
 
+- name: update status
+  import_tasks: checkforupdate.yaml
+...

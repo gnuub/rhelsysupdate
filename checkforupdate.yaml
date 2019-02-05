@@ -1,0 +1,7 @@
+---
+- name: Check host for update status and register current state
+  command: yum check-update
+  ignore_errors: yes
+  no_log: yes
+  register: update
+...
