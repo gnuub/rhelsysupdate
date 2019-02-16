@@ -6,24 +6,24 @@
 
   pre_tasks:
     - name: Check host for update status and register current state
-      import_tasks: checkforupdate.yaml
+      import_tasks: tasks/checkforupdate.yaml
 
   tasks:
     - name: Perform update and go into update loop
-      import_tasks: rhelsysupdate_task.yaml
+      import_tasks: tasks/rhelsysupdate.yaml
       when: update.rc > 1
       notify:
       - Loop update
 
   handlers:
     - name: Loop update
-      import_tasks: rhelsysupdate_task.yaml
+      import_tasks: handlers/rhelsysupdate.yaml
       retries: 5
       until: update.rc < 1
 
   post_tasks:
     - name: Final update check
-      import_tasks: checkforupdate.yaml
+      import_tasks: tasks/checkforupdate.yaml
 
     - debug:
         var: update.rc
