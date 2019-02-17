@@ -7,10 +7,12 @@
   pre_tasks:
     - name: Check host for update status and register current state
       import_tasks: tasks/checkforupdate.yaml
+      static: no
 
   tasks:
     - name: Perform update and go into update loop
       import_tasks: tasks/rhelsysupdate.yaml
+      static: no
       when: update.rc > 1
       notify:
       - Loop update
@@ -18,12 +20,14 @@
   handlers:
     - name: Loop update
       import_tasks: handlers/rhelsysupdate.yaml
+      static: no
       retries: 5
       until: update.rc < 1
 
   post_tasks:
     - name: Final update check
       import_tasks: tasks/checkforupdate.yaml
+      static: no
 
     - debug:
         var: update.rc
