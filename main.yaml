@@ -13,7 +13,6 @@
     - name: Perform update and go into update loop
       import_tasks: tasks/rhelsysupdate.yaml
       static: no
-      when: update.rc > 1
       notify:
       - Loop update
 
