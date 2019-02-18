@@ -6,13 +6,10 @@
   register: results
 
 - name: log results
-  delegate_to: 127.0.0.1
-  copy:
-    dest: output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.{{ansible_date_time.epoch}}.appliedupdates.log
-    content: "{{ results['results'][0] }}"
-    backup: yes
+  import_tasks: tasks/logresults.yaml
+  static: no
 
 - name: update status
-  import_tasks: checkforupdate.yaml
+  import_tasks: tasks/checkforupdate.yaml
   static: no
 ...

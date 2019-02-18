@@ -11,12 +11,9 @@
 
   tasks:
     - name: Update output when no work needed
-      delegate_to: 127.0.0.1
-      copy:
-        dest: output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.{{ansible_date_time.epoch}}.appliedupdates.log
-        content: "{{ results['results'][0] }}"
-        backup: yes
-      when: update.rc = 0
+      import_tasks: tasks/logresults.yaml
+      static: no
+      when: update.rc == 0
 
     - name: Perform update and go into update loop
       import_tasks: tasks/rhelsysupdate.yaml

@@ -1,0 +1,11 @@
+---
+- name: log no update
+  become: False
+  local_action: copy dest=output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.{{ansible_date_time.epoch}}.appliedupdates.log content="No Updates to Apply\n" backup=yes
+  when: results is not defined
+
+- name: log results
+  become: False
+  local_action: copy dest=output/{{ ansible_hostname }}.{{ ansible_date_time.date }}.{{ansible_date_time.epoch}}.appliedupdates.log content="{{ results['results'][0] }}\n" backup=yes
+  when: results is defined
+...
